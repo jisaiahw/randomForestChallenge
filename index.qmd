@@ -251,13 +251,7 @@ grid.arrange(rmse_plot, r2_plot, ncol = 1)
 
 **Analysis of the Power of More Trees:**
 
-The visualization reveals several key insights about ensemble learning:
-
-**Most Dramatic Improvement:** The most significant performance gains occur in the first 100 trees. RMSE drops from approximately $45,000 with 1 tree to around $28,000 with 100 trees - a **38% improvement** in just 100 trees. This demonstrates the core principle of ensemble learning: combining many weak learners creates a strong learner.
-
-**Diminishing Returns:** Beyond 100 trees, improvements become increasingly marginal. The difference between 100 and 1000 trees shows only about a $2,000 RMSE improvement (7% gain), while going from 1000 to 5000 trees provides less than $1,000 additional improvement (3% gain). This illustrates the classic pattern of diminishing returns in ensemble methods.
-
-**Why This Happens:** Early trees capture the most obvious patterns in the data. As more trees are added, they primarily help reduce variance by averaging out the noise in individual tree predictions. The first 100 trees do the heavy lifting of learning the underlying relationships, while additional trees provide increasingly smaller refinements.
+The visualization reveals that the most dramatic performance gains occur in the first 100 trees, with RMSE dropping from approximately $45,000 to $28,000 - a **38% improvement** that demonstrates the core principle of ensemble learning: combining many weak learners creates a strong learner. Beyond 100 trees, improvements become increasingly marginal, showing only about a $2,000 RMSE improvement (7% gain) from 100 to 1000 trees, and less than $1,000 additional improvement (3% gain) from 1000 to 5000 trees. This illustrates the classic pattern of diminishing returns in ensemble methods, where early trees capture the most obvious patterns in the data, while additional trees primarily help reduce variance by averaging out noise in individual tree predictions.
 
 ::: {.callout-important}
 ## 📊 Visualization Requirements
@@ -378,21 +372,7 @@ grid.arrange(dt_plot, rf_plot, ncol = 2)
 
 **Analysis: Why Random Forests Don't Overfit Like Individual Trees**
 
-The side-by-side comparison reveals a fundamental difference in how decision trees and random forests behave:
-
-**Decision Trees Overfit:** As tree complexity (max depth) increases, training error drops dramatically while test error actually increases. This classic overfitting pattern occurs because individual trees memorize the training data, creating overly complex rules that don't generalize to new data.
-
-**Random Forests Resist Overfitting:** Unlike individual trees, random forests show both training and test performance improving together as more trees are added. The gap between training and test performance remains relatively stable, indicating good generalization.
-
-**Three Key Mechanisms Prevent Overfitting in Random Forests:**
-
-1. **Bootstrap Sampling:** Each tree is trained on a different random sample of the data (with replacement). This prevents any single tree from memorizing the entire training set.
-
-2. **Random Feature Selection:** At each split, only a random subset of features is considered. This forces trees to find different patterns and prevents over-reliance on any single feature.
-
-3. **Averaging Predictions:** The final prediction is the average of all tree predictions. Individual tree errors cancel out, and the ensemble captures the true underlying patterns while filtering out noise.
-
-**The Result:** Random forests achieve the best of both worlds - they can capture complex, non-linear relationships (like individual trees) while maintaining good generalization (unlike individual trees). This is why ensemble methods are so powerful for real-world data science applications.
+The side-by-side comparison reveals that decision trees can overfit when allowed to grow too complex, but with the depth constraints used here, they don't show the classic overfitting "squiggle" where test error increases. Random forests show both training and test performance improving together as more trees are added, with the gap between training and test performance remaining relatively stable, indicating good generalization. This resistance to overfitting comes from three key mechanisms: bootstrap sampling (each tree trains on different random samples, preventing memorization), random feature selection (forcing trees to find different patterns), and averaging predictions (individual tree errors cancel out while capturing true underlying patterns). The key difference is that random forests can safely use many trees without overfitting, while individual decision trees require careful complexity control to avoid overfitting.
 
 ::: {.callout-important}
 ## 📊 Overfitting Analysis Requirements
@@ -452,29 +432,7 @@ kable(comparison_table,
 
 **Analysis: When Are Random Forests Worth the Complexity?**
 
-The comparison reveals important insights about the trade-offs between model complexity and performance:
-
-**Performance Improvements:**
-- **1 Tree vs Linear Regression:** The single decision tree already outperforms linear regression by 8.2%, demonstrating that non-linear relationships exist in this housing data.
-- **100 Trees vs Linear Regression:** The 100-tree random forest shows a substantial 18.7% improvement over linear regression, nearly matching the improvement from 1 to 100 trees (10.5%).
-- **1000 Trees:** Additional trees provide diminishing returns, with only 2.1% further improvement.
-
-**Key Insights:**
-
-**When Random Forests Are Worth It:**
-- **Non-linear Relationships:** The 8.2% improvement from linear regression to a single tree indicates significant non-linear patterns in the data that linear models cannot capture.
-- **Complex Feature Interactions:** Housing prices depend on complex interactions between features (e.g., square footage matters differently in different zip codes), which random forests capture naturally.
-- **Mixed Data Types:** The combination of categorical (zipCode) and numerical features benefits from tree-based methods.
-
-**When Linear Regression Might Suffice:**
-- **Interpretability Requirements:** Linear regression provides clear coefficients showing the impact of each feature, while random forests are "black boxes."
-- **Small Datasets:** With limited data, the complexity of random forests might lead to overfitting.
-- **Linear Relationships:** If the underlying relationships are truly linear, the 18.7% improvement might not justify the added complexity.
-
-**The Practical Decision:**
-For this housing dataset, random forests are clearly worth the complexity. The 18.7% improvement in RMSE translates to approximately $6,000 better price predictions on average - a significant business value that justifies the added computational cost and reduced interpretability.
-
-**The Bottom Line:** When you have complex, real-world data with non-linear relationships and mixed data types, the performance gains from random forests typically justify their complexity. However, always start with simpler models to establish a baseline and understand your data's fundamental patterns.
+The comparison reveals a surprising result: linear regression actually outperforms the random forest models in this dataset, suggesting that the housing price relationships in this data are more linear than expected. Nonetheless, when going from 1 tree to 100 trees, the improvement over linear regression goes from a drastic -27.5% to a more modest 1.9% improvement, and from 100 trees to 1000 trees, the improvement goes from 1.9% to 0.4% improvement. This suggests that the random forest models are improving as the number of trees increases, but the improvement is not as dramatic as the increase in the number of trees. It seems that random forests are worth the added complexity when the relationships are more complex, but when the relationships are more linear, linear regression is a better model.
 
 ::: {.callout-important}
 ## 📊 Comparison Requirements
