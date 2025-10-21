@@ -446,7 +446,6 @@ comparison_table$Improvement_over_LR <- paste0(comparison_table$Improvement_over
 # Display the comparison table
 library(knitr)
 kable(comparison_table, 
-      col.names = c("Model", "Test RMSE ($)", "Train RMSE ($)", "R-squared", "Improvement over Linear Regression"),
       caption = "Model Performance Comparison: Linear Regression vs Random Forests",
       align = c("l", "r", "r", "r", "r"))
 ```

@@ -36,35 +36,6 @@ ul.task-list li input[type="checkbox"] {
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="index_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -275,19 +246,19 @@ window.Quarto = {
 <table class="caption-top table table-sm table-striped small">
 <caption>Model Performance Comparison: Linear Regression vs Random Forests</caption>
 <colgroup>
-<col style="width: 26%">
-<col style="width: 13%">
-<col style="width: 14%">
-<col style="width: 9%">
 <col style="width: 34%">
+<col style="width: 12%">
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Model</th>
-<th style="text-align: right;">Test RMSE (<span class="math inline">\()| Train RMSE (\)</span>)</th>
-<th style="text-align: right;">R-squared</th>
-<th style="text-align: right;">Improvement over Linear Regression</th>
-<th style="text-align: right;"></th>
+<th style="text-align: right;">Test_RMSE</th>
+<th style="text-align: right;">Train_RMSE</th>
+<th style="text-align: right;">R_squared</th>
+<th style="text-align: right;">Improvement_over_LR</th>
 </tr>
 </thead>
 <tbody>
